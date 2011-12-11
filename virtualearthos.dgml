@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dgml xmlns="http://edu.kde.org/marble/dgml/2.0">
+    <document>
+
+        <head>
+            <name>Virtual Earth OS</name>
+            <target>earth</target>
+            <theme>virtualearthos</theme>
+            <icon pixmap="preview.png"/>
+            <visible>true</visible>
+            <description><![CDATA[<p>A <i>global map</i> provided by Microsoft.]]></description>
+            <zoom>
+                <minimum>  700  </minimum>
+                <maximum>  3700  </maximum>
+                <discrete> false </discrete>
+            </zoom>
+        </head>
+
+        <map bgcolor="#000000">
+            <canvas/>
+            <target/>
+            <layer name="virtualearthos" backend="texture" >
+                <!-- OpenCycleMap mapnik rendered tiles expire after seven days
+                     or 604800 seconds -->
+                <texture name="mapnik_data" expire="604800" >
+                    <sourcedir format="PNG"> earth/virtualearthos </sourcedir>
+                    <storageLayout levelZeroColumns="2" levelZeroRows="2" maximumTileLevel="15" mode="QuadTree" ></storageLayout>
+                    <projection name="Mercator" />
+                    <downloadUrl protocol="http" host="ecn.t0.tiles.virtualearth.net" path="/tiles/r{quadIndex}.png" query="g=41&amp;productSet=mmOS" />
+                    <downloadUrl protocol="http" host="ecn.t1.tiles.virtualearth.net" path="/tiles/r{quadIndex}.png" query="g=41&amp;productSet=mmOS" />
+                    <downloadUrl protocol="http" host="ecn.t2.tiles.virtualearth.net" path="/tiles/r{quadIndex}.png" query="g=41&amp;productSet=mmOS" />
+                    <downloadUrl protocol="http" host="ecn.t3.tiles.virtualearth.net" path="/tiles/r{quadIndex}.png" query="g=41&amp;productSet=mmOS" />
+                    <downloadPolicy usage="Browse" maximumConnections="20" />
+                    <downloadPolicy usage="Bulk" maximumConnections="2" />
+                </texture>
+            </layer>
+            <layer name="standardplaces" backend="geodata">
+               <geodata name="cityplacemarks">
+                    <sourcefile format="KML">cityplacemarks.kml</sourcefile>
+                    <pick>placemark</pick>
+                </geodata>
+                <geodata name="baseplacemarks">
+                    <sourcefile format="KML">baseplacemarks.kml</sourcefile>
+                    <pick>placemark</pick>
+                </geodata>
+                <geodata name="elevplacemarks">
+                    <sourcefile format="KML">elevplacemarks.kml</sourcefile>
+                    <pick>placemark</pick>
+                </geodata>
+                <geodata name="otherplacemarks">
+                    <sourcefile
+                    format="KML">otherplacemarks.kml</sourcefile>
+                    <pick>placemark</pick>
+                </geodata>
+                <geodata name="boundaryplacemarks">
+                    <sourcefile format="KML">boundaryplacemarks</sourcefile>
+                    <pick>placemark</pick>
+                </geodata>
+            </layer>
+        </map>
+        <settings>
+            <property name="coordinate-grid">
+                <value>true</value>
+                <available>true</available>
+            </property>
+            <property name="overviewmap">
+                <value>false</value>
+                <available>true</available>
+            </property>
+            <property name="compass">
+                <value>true</value>
+                <available>true</available>
+            </property>
+            <property name="scalebar">
+                <value>false</value>
+                <available>true</available>
+            </property>
+        </settings>
+    </document>
+</dgml>
